@@ -134,3 +134,6 @@ dist
 
 # Visual Studio Code
 .vscode/
+
+# dotenv
+.env
