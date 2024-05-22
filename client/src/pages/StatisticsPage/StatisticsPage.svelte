@@ -7,6 +7,7 @@
   import { fetchGet } from "../../util/api";
   import { TASK_URL } from "../../stores/generalStore";
   import toast from "svelte-french-toast";
+  import StatisticDetails from "../../components/StatisticDetails/StatisticDetails.svelte";
 
   let task;
   let isShown = false;
@@ -34,6 +35,9 @@
   }
 </script>
 
+<div class="statistics-container">
+  <StatisticDetails />
+</div>
 <div class="modal-container">
   <Modal {isShown}>
     <UpdateTaskForm
@@ -44,15 +48,34 @@
   </Modal>
 </div>
 <div class="tasks-container">
-  <TaskList on:taskUpdate={handleUpdate} isTaskCompleted={true} />
+  <h3>Completetd tasks</h3>
+  <div class="task-list">
+    <TaskList on:taskUpdate={handleUpdate} isTaskCompleted={true} />
+  </div>
 </div>
 
 <style>
   .modal-container {
+    display: flex;
+    justify-content: center;
     margin-top: 40px;
   }
   .tasks-container {
     padding: 14px;
+    margin-top: 40px;
+    width: 100%;
+  }
+  .statistics-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  h3 {
+    text-align: center;
+    border-bottom: 1px solid #f7f7f7;
+    padding: 20px;
+  }
+  .task-list {
     margin-top: 40px;
   }
 </style>

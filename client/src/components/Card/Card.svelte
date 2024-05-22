@@ -1,5 +1,5 @@
 <script>
-  export let isTaskCompleted;
+  export let isTaskCompleted = false;
 </script>
 
 <div class="card" class:completed={isTaskCompleted}>
@@ -18,4 +18,3 @@
     background-color: #f7f7f7;
   }
 </style>
-

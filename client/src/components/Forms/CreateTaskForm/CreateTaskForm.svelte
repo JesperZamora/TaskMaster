@@ -83,7 +83,7 @@
     align-items: center;
     padding: 10px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   h3 {
     margin-bottom: 20px;
