@@ -6,8 +6,12 @@ export async function getTasks(userId) {
       "SELECT * FROM tasks WHERE userId = ?;",
       [userId]
     );
-    const tasksFormatted = dateFormatter(rows);
-    return tasksFormatted;
+
+    const tasksFormatted = isCompletedFormatter(rows);
+
+    const tasksWithFormattedDates = dateFormatter(tasksFormatted);
+
+    return tasksWithFormattedDates;
   } catch (error) {
     console.error("Error fetching tasks:", error);
     throw error;
@@ -59,6 +63,13 @@ export async function deleteTask(id) {
     console.error("Error deleting task:", error);
     throw error;
   }
+}
+
+function isCompletedFormatter(tasks) {
+  return tasks.map((task) => ({
+    ...task,
+    isCompleted: Boolean(task.isCompleted),
+  }));
 }
 
 function dateFormatter(tasks) {

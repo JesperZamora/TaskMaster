@@ -21,6 +21,7 @@ export async function createTables() {
       taskDescription TEXT,
       creationDate DATE DEFAULT (CURRENT_DATE()),
       dueDate DATE,
+      isCompleted BOOLEAN,
       userId INT,
       FOREIGN KEY (userId) REFERENCES Users(id)
     );`);
@@ -60,30 +61,34 @@ export async function insertUserData() {
 
 export async function insertTasksData() {
   const sql =
-    "INSERT INTO tasks (title, taskDescription, dueDate, userId) values (?,?,?,?);";
+    "INSERT INTO tasks (title, taskDescription, dueDate, isCompleted, userId) values (?,?,?,?,?);";
 
   await connection.execute(sql, [
     "Task 1",
     "This is the description of task 1",
     "2024-06-1",
+    1,
     2,
   ]);
   await connection.execute(sql, [
     "Task 2",
     "This is the description of task 2",
     "2024-06-2",
+    0,
     2,
   ]);
   await connection.execute(sql, [
     "Task 3",
     "This is the description of task 3",
     "2024-06-3",
+    0,
     3,
   ]);
   await connection.execute(sql, [
     "Task 4",
     "This is the description of task 4",
     "2024-06-4",
+    0,
     3,
   ]);
 }

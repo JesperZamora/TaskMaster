@@ -64,6 +64,20 @@
         required
       />
     </div>
+    <div class="form-field">
+      <div class="completed-container">
+        <label class="label-completed" for="isCompleted">Completed:</label>
+        <div class="input-completed">
+          <input
+            class="isCompleted"
+            type="checkbox"
+            id="isCompleted"
+            bind:checked={task.isCompleted}
+          />
+        </div>
+      </div>
+    </div>
+
     <div class="btn-container update">
       <Button type={"primary"}>Submit Update</Button>
     </div>
@@ -104,6 +118,33 @@
     font-size: 16px;
     width: 100%;
   }
+  .completed-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .label-completed {
+    display: inline-block;
+  }
+  .input-completed {
+    display: inline-block;
+    align-self: flex-start;
+  }
+  input[type="checkbox"].isCompleted {
+    margin-top: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 5px;
+    height: 16px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #d91b42;
+  }
+  input[type="checkbox"].isCompleted:checked {
+    background-color: #45c496;
+  }
   .date {
     width: 50%;
   }
@@ -124,5 +165,6 @@
   }
   .cancel {
     width: 90%;
+    margin-bottom: 10px;
   }
 </style>
