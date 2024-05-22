@@ -29,7 +29,7 @@
   }
 </script>
 
-<Card>
+<Card isTaskCompleted={task.isCompleted}>
   <div class="task">
     <div class="task-title">
       <h3>{task.title}</h3>

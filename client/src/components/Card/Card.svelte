@@ -1,13 +1,21 @@
-<div class="card">
+<script>
+  export let isTaskCompleted;
+</script>
+
+<div class="card" class:completed={isTaskCompleted}>
   <slot></slot>
 </div>
 
 <style>
   .card {
-    background: #fff;
+    background-color: #fff;
     padding: 20px;
     border-radius: 6px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 500px;
   }
+  .card.completed {
+    background-color: #f7f7f7;
+  }
 </style>
+
