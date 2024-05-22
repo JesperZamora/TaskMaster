@@ -20,6 +20,8 @@
 
 <div class="search-container">
   <input
+    id="search"
+    name="search"
     type="text"
     placeholder="Search for task ..."
     bind:value={searchWord}
@@ -30,6 +32,7 @@
   .search-container {
     width: 100%;
     text-align: center;
+    margin-bottom: 10px;
   }
   input {
     padding: 8px 12px;
@@ -38,6 +41,5 @@
     border-radius: 6px;
     background-color: #f7f7f7;
     width: 400px;
-    margin-bottom: 30px;
   }
 </style>

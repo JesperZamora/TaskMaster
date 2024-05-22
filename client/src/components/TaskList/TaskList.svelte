@@ -7,14 +7,45 @@
 
   export let isTaskCompleted;
 
-  let filteredTasks = [];
+  let filteredTasks = $TaskStore;
 
   function handleTaskFound(event) {
     filteredTasks = event.detail.tasks;
   }
+
+  let fromDate;
+  let toDate;
+  
+  $: if(fromDate && toDate) {
+    calculateDate();
+  }
+
+  function calculateDate() {
+    const dateA = new Date(fromDate).getTime();
+    const dateB = new Date(toDate).getTime();
+   
+    filteredTasks = $TaskStore.filter((task) => {
+      const taskDate = new Date(task.dueDate).getTime();
+      return taskDate >= dateA && taskDate <= dateB;
+    });
+  }
+
+  function clearDates() {
+    fromDate = "";
+    toDate = "";
+    filteredTasks = $TaskStore;
+  }
 </script>
 
 <Search tasks={$TaskStore} on:taskFound={handleTaskFound}/>
+
+<div class="date-container">
+  <div>
+    <span>Due date from: </span><input class="date from-date" type="date" bind:value={fromDate}>
+    <span>to: </span><input class="date" type="date" bind:value={toDate}>
+    <button on:click={clearDates}>Clear</button>
+  </div>
+</div>
 
 {#if filteredTasks.length < 1}
   <p>You have currently no tasks ...</p>
@@ -42,5 +73,26 @@
     font-weight: 500;
     font-size: 25px;
     text-align: center;
+  }
+
+  .date {
+    border: none;
+    padding: 5px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    margin-left: 8px;
+  }
+  .from-date {
+    margin-right: 5px;
+  }
+  span {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .date-container {
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    margin-bottom: 20px;
   }
 </style>

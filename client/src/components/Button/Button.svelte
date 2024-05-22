@@ -9,7 +9,7 @@
 <style>
   button {
     border: 0;
-    padding: 8px 12px;
+    padding: 5px 12px;
     border-radius: 6px;
     font-weight: 500;
     font-size: 14px;
