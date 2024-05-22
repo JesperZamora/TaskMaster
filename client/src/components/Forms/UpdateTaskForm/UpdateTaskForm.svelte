@@ -140,7 +140,7 @@
     outline: none;
     cursor: pointer;
     border-radius: 4px;
-    background-color: #d91b42;
+    background-color: #e1da1233;
   }
   input[type="checkbox"].isCompleted:checked {
     background-color: #45c496;

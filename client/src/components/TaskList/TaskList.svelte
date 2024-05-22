@@ -3,15 +3,24 @@
   import { flip } from "svelte/animate";
   import TaskDetails from "../TaskDetails/TaskDetails.svelte";
   import TaskStore from "../../stores/taskStore";
+  import Search from "../Search/Search.svelte";
 
   export let isTaskCompleted;
+
+  let filteredTasks = [];
+
+  function handleTaskFound(event) {
+    filteredTasks = event.detail.tasks;
+  }
 </script>
 
-{#if $TaskStore.length < 1}
+<Search tasks={$TaskStore} on:taskFound={handleTaskFound}/>
+
+{#if filteredTasks.length < 1}
   <p>You have currently no tasks ...</p>
 {:else}
   <div class="task-list">
-    {#each $TaskStore as task (task.id)}
+    {#each filteredTasks as task (task.id)}
       {#if task.isCompleted === isTaskCompleted}
         <div out:scale={{ duration: 500 }}>
           <TaskDetails {task} on:taskUpdate />

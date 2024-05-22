@@ -48,7 +48,7 @@
   </Modal>
 </div>
 <div class="tasks-container">
-  <h3>Completetd tasks</h3>
+  <h3>Completed tasks</h3>
   <div class="task-list">
     <TaskList on:taskUpdate={handleUpdate} isTaskCompleted={true} />
   </div>
@@ -62,7 +62,7 @@
   }
   .tasks-container {
     padding: 14px;
-    margin-top: 40px;
+    margin-top: 10px;
     width: 100%;
   }
   .statistics-container {
