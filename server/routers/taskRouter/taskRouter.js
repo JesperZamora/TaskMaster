@@ -24,8 +24,14 @@ router.post("/api/v1/tasks", authenticateSession, async (req, res) => {
   const { userId } = req.session;
 
   try {
-    const { title, taskDescription, dueDate } = req.body;
-    const result = await postTask(title, taskDescription, dueDate, userId);
+    const { title, taskDescription, dueDate, isCompleted } = req.body;
+    const result = await postTask(
+      title,
+      taskDescription,
+      dueDate,
+      isCompleted,
+      userId
+    );
     return res.status(200).send({ data: result });
   } catch (error) {
     console.error("Error creating tasks:", error);
@@ -34,10 +40,15 @@ router.post("/api/v1/tasks", authenticateSession, async (req, res) => {
 });
 
 router.put("/api/v1/tasks", authenticateSession, async (req, res) => {
-  const { id, title, taskDescription } = req.body;
-
+  const { title, taskDescription, dueDate, isCompleted, id } = req.body;
   try {
-    const result = await putTask(title, taskDescription, id);
+    const result = await putTask(
+      title,
+      taskDescription,
+      dueDate,
+      isCompleted,
+      id
+    );
     return res.status(200).send({ data: result });
   } catch (error) {
     console.error("Error updating tasks:", error);

@@ -18,30 +18,48 @@ export async function getTasks(userId) {
   }
 }
 
-export async function postTask(title, taskDescription, dueDate, userId) {
+export async function postTask(
+  title,
+  taskDescription,
+  dueDate,
+  isCompleted,
+  userId
+) {
   try {
     const [result] = await connection.query(
-      "INSERT INTO tasks(title, taskDescription, dueDate, userId) values(?,?,?,?);",
-      [title, taskDescription, dueDate, userId]
+      "INSERT INTO tasks(title, taskDescription, dueDate, isCompleted, userId) values(?,?,?,?,?);",
+      [title, taskDescription, dueDate, isCompleted, userId]
     );
-    return { id: result.insertId, title, taskDescription, dueDate };
+    return {
+      id: result.insertId,
+      title,
+      taskDescription,
+      dueDate,
+      isCompleted,
+    };
   } catch (error) {
     console.error("Error inserting task:", error);
     throw error;
   }
 }
 
-export async function putTask(title, taskDescription, id) {
+export async function putTask(
+  title,
+  taskDescription,
+  dueDate,
+  isCompleted,
+  id
+) {
   try {
     const [result] = await connection.query(
-      "UPDATE tasks SET title = ?, taskDescription = ? WHERE tasks.id = ?;",
-      [title, taskDescription, id]
+      "UPDATE tasks SET title = ?, taskDescription = ?, dueDate = ?, isCompleted = ? WHERE tasks.id = ?;",
+      [title, taskDescription, dueDate, isCompleted, id]
     );
 
     if (result.affectedRows === 0) {
       return "Task not found";
     }
-    return { id, title, taskDescription };
+    return { id, title, taskDescription, isCompleted };
   } catch (error) {
     console.error("Error inserting task:", error);
     throw error;

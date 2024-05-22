@@ -3,6 +3,8 @@
   import { flip } from "svelte/animate";
   import TaskDetails from "../TaskDetails/TaskDetails.svelte";
   import TaskStore from "../../stores/taskStore";
+
+  export let isTaskCompleted;
 </script>
 
 {#if $TaskStore.length < 1}
@@ -10,12 +12,16 @@
 {:else}
   <div class="task-list">
     {#each $TaskStore as task (task.id)}
-      <div out:scale={{ duration: 500 }} animate:flip={{ duration: 600 }}>
-        <TaskDetails {task} on:taskUpdate />
-      </div>
+      {#if task.isCompleted === isTaskCompleted}
+        <div out:scale={{ duration: 500 }}>
+          <TaskDetails {task} on:taskUpdate />
+        </div>
+      {/if}
     {/each}
   </div>
 {/if}
+
+<!-- animate:flip={{ duration: 600 }} -->
 
 <style>
   .task-list {

@@ -7,7 +7,7 @@
   import { fetchGet } from "../../util/api";
   import { TASK_URL } from "../../stores/generalStore";
   import toast from "svelte-french-toast";
-  
+
   let task;
   let isShown = false;
 
@@ -44,7 +44,7 @@
   </Modal>
 </div>
 <div class="tasks-container">
-  <TaskList on:taskUpdate={handleUpdate} />
+  <TaskList on:taskUpdate={handleUpdate} isTaskCompleted={false} />
 </div>
 
 <style>

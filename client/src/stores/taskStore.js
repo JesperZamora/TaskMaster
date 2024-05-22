@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
 
-const taskStore = writable([]);
+const TaskStore = writable([]);
 
-export default taskStore;
+export default TaskStore;

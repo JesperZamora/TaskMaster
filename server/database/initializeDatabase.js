@@ -21,7 +21,7 @@ export async function createTables() {
       taskDescription TEXT,
       creationDate DATE DEFAULT (CURRENT_DATE()),
       dueDate DATE,
-      isCompleted BOOLEAN,
+      isCompleted BOOLEAN DEFAULT 0,
       userId INT,
       FOREIGN KEY (userId) REFERENCES Users(id)
     );`);

@@ -9,6 +9,7 @@
     title: "",
     taskDescription: "",
     dueDate: "",
+    isCompleted: false,
   };
 
   async function handleSumbit() {
