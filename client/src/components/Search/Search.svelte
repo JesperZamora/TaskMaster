@@ -1,9 +1,9 @@
 <script>
   import { createEventDispatcher } from "svelte";
   
-  let dispatch = createEventDispatcher();
   export let tasks = [];
   let searchWord = "";
+  let dispatch = createEventDispatcher();
 
   $: filteredTasks = tasks.filter(
     (task) =>
