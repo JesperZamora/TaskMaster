@@ -3,6 +3,8 @@
   import { login } from "../../../stores/userStore";
   import { fetchPost } from "../../../util/api";
   import { AUTH_URL } from "../../../stores/generalStore";
+  import Modal from "../../Modal/Modal.svelte";
+  import SignupForm from "../SignupForm/SignupForm.svelte";
   import toast from "svelte-french-toast";
 
   let loginFields = {
@@ -23,7 +25,19 @@
     loginFields.email = "";
     loginFields.password = "";
   }
+
+  let isShown = false;
+
+  function toggleModal() {
+    isShown = !isShown;
+  }
+
 </script>
+<div class="modal-container">
+  <Modal {isShown}>
+    <SignupForm on:close={toggleModal} />
+  </Modal>
+</div>
 
 <div class="form-container">
   <form on:submit|preventDefault={handleSumbit}>
@@ -52,6 +66,9 @@
       <Button type={"tertiary"}>Login</Button>
     </div>
   </form>
+  <div class="signup-container">
+    <p class="signup-text">Don't have an account yet?</p> <button on:click={toggleModal} class=signup-link>Sign up</button>
+  </div>
 </div>
 
 <style>
@@ -104,4 +121,30 @@
     display: flex;
     flex-direction: column;
   }
+
+  .signup-container {
+    padding: 12px;
+    margin-top: 20px;
+  }
+  .signup-text {
+    display: inline;
+    font-size: 15px;
+    margin-right: 5px;
+  }
+  .signup-link {
+    border: none;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .signup-link:hover {
+    border-bottom: 2px solid #222;
+  }
+  .modal-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
 </style>

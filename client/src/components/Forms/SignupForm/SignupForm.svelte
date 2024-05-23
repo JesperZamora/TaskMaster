@@ -1,5 +1,11 @@
 <script>
   import Button from "../../Button/Button.svelte";
+  import { createEventDispatcher } from "svelte";
+  import { fetchPost } from "../../../util/api";
+  import { AUTH_URL } from "../../../stores/generalStore";
+  import toast from "svelte-french-toast";
+
+  let dispatch = createEventDispatcher();
 
   let signupFields = {
     firstName: "",
@@ -8,62 +14,83 @@
     password: "",
   };
 
-  function submitHandler() {
-    signupFields.firstName = "";
-    signupFields.lastName = "";
-    signupFields.email = "";
-    signupFields.password = "";
+  async function signupHandler() {
+    const signupCredentials = signupFields;
+    const response = await fetchPost(`${$AUTH_URL}/signup`, signupCredentials);
+
+    if (response) {
+      toast.success("Account created!");
+      closeModal();
+    } else {
+      toast.error("Failed to create account");
+    }
+  }
+
+  function closeModal() {
+    dispatch("close");
   }
 </script>
 
-<form on:submit|preventDefault={submitHandler}>
-  <h3>Sign up for an account</h3>
-  <div class="form-field">
-    <label for="firstName">First name:</label>
-    <input
-      type="text"
-      id="firstName"
-      bind:value={signupFields.firstName}
-      placeholder="John"
-      required
-    />
+<div class="form-container">
+  <form on:submit|preventDefault={signupHandler}>
+    <h3>Sign up for an account</h3>
+    <div class="form-field">
+      <label for="firstName">First name:</label>
+      <input
+        type="text"
+        id="firstName"
+        bind:value={signupFields.firstName}
+        placeholder="John"
+        required
+      />
+    </div>
+    <div class="form-field">
+      <label for="lastName">Last name:</label>
+      <input
+        type="text"
+        id="lastName"
+        bind:value={signupFields.lastName}
+        placeholder="Doe"
+        required
+      />
+    </div>
+    <div class="form-field">
+      <label for="signup-email">Email:</label>
+      <input
+        type="email"
+        id="signup-email"
+        bind:value={signupFields.email}
+        placeholder="example@mail.com"
+        required
+      />
+    </div>
+    <div class="form-field">
+      <label for="password">Password:</label>
+      <input
+        type="signup-password"
+        id="signup-password"
+        bind:value={signupFields.password}
+        placeholder="********"
+        required
+      />
+    </div>
+    <div class="btn-container signup">
+      <Button type={"tertiary"}>Sign up</Button>
+    </div>
+  </form>
+  <div class="btn-container cancel">
+    <Button type={"default"} on:click={closeModal}>Cancel</Button>
   </div>
-  <div class="form-field">
-    <label for="lastName">Last name:</label>
-    <input
-      type="text"
-      id="lastName"
-      bind:value={signupFields.lastName}
-      placeholder="Doe"
-      required
-    />
-  </div>
-  <div class="form-field">
-    <label for="email">Email:</label>
-    <input
-      type="email"
-      id="email"
-      bind:value={signupFields.email}
-      placeholder="example@mail.com"
-      required
-    />
-  </div>
-  <div class="form-field">
-    <label for="password">Password:</label>
-    <input
-      type="password"
-      id="password"
-      bind:value={signupFields.password}
-      placeholder="********"
-      required
-    />
-  </div>
-  <div class="btn-container">
-    <Button type={"tertiary"}>Login</Button>
-  </div>
-</form>
+</div>
 
 <style>
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -95,10 +122,15 @@
     width: 100%;
   }
   .btn-container {
-    width: 90%;
+    width: 95%;
     display: flex;
     flex-direction: column;
+  }
+  .signup {
     margin-top: 15px;
-    gap: 10px;
+  }
+  .cancel {
+    width: 90%;
+    margin-bottom: 10px;
   }
 </style>
