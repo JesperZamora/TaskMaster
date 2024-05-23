@@ -24,7 +24,7 @@ export async function createTables() {
       taskDescription TEXT,
       creationDate DATE DEFAULT (CURRENT_DATE()),
       dueDate DATE,
-      daysLeft INT,
+      days INT,
       isCompleted BOOLEAN DEFAULT 0,
       userId INT,
       FOREIGN KEY (userId) REFERENCES Users(id));`
@@ -35,7 +35,7 @@ export async function createTables() {
       BEFORE INSERT ON tasks
       FOR EACH ROW
       BEGIN
-          SET NEW.daysLeft = DATEDIFF(NEW.dueDate, NEW.creationDate);
+          SET NEW.days = DATEDIFF(NEW.dueDate, NEW.creationDate);
       END;`);
 
     await connection.query(`
@@ -43,7 +43,7 @@ export async function createTables() {
       BEFORE UPDATE ON tasks
       FOR EACH ROW
       BEGIN
-          SET NEW.daysLeft = DATEDIFF(NEW.dueDate, NEW.creationDate);
+          SET NEW.days = DATEDIFF(NEW.dueDate, NEW.creationDate);
       END;`);
 
     return "users- & tasks table created";

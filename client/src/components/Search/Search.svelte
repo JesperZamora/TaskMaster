@@ -22,8 +22,9 @@
   <input
     id="search"
     name="search"
-    type="text"
-    placeholder="Search for task ..."
+    type="search"
+    placeholder="Search for task by title or description..."
+    maxlength="45"
     bind:value={searchWord}
   />
 </div>
@@ -32,14 +33,13 @@
   .search-container {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
   }
   input {
-    padding: 8px 12px;
+    padding: 6px 12px;
     font-size: 15px;
     border: none;
     border-radius: 6px;
     background-color: #f7f7f7;
-    width: 400px;
+    width: 300px;
   }
 </style>

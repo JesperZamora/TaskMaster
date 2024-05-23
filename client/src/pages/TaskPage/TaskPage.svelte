@@ -34,25 +34,31 @@
   }
 </script>
 
-<div class="modal-container">
-  <Modal {isShown}>
-    <UpdateTaskForm
-      {task}
-      on:cancel={handleCancel}
-      on:taskUpdated={handleTaskUpdated}
-    />
-  </Modal>
-</div>
 <div class="tasks-container">
+  <div class="modal-container">
+    <Modal {isShown}>
+      <UpdateTaskForm
+        {task}
+        on:cancel={handleCancel}
+        on:taskUpdated={handleTaskUpdated}
+      />
+    </Modal>
+  </div>
   <TaskList on:taskUpdate={handleUpdate} isTaskCompleted={false} />
 </div>
 
 <style>
   .modal-container {
-    margin-top: 40px;
+    position: absolute;
+    top: 100px;
   }
   .tasks-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     padding: 14px;
-    margin-top: 40px;
+    margin-top: 30px;
+    align-items: center;
+    position: relative;
   }
 </style>

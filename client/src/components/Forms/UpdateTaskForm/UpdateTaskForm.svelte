@@ -42,16 +42,18 @@
         bind:value={task.title}
         placeholder="Buy fruit ..."
         required
+        maxlength="45"
       />
     </div>
     <div class="form-field">
       <label for="taskDescription">Description:</label>
-      <input
-        type="text"
+      <textarea
+        name="taskDescription"
         id="taskDescription"
-        bind:value={task.taskDescription}
         placeholder="Bananas, avocado, apples ..."
+        bind:value={task.taskDescription}
         required
+        maxlength="280"
       />
     </div>
     <div class="form-field">
@@ -166,5 +168,15 @@
   .cancel {
     width: 90%;
     margin-bottom: 10px;
+  }
+  textarea {
+    resize: none;
+    border: 1px solid #f7f7f7;
+    background-color: #f7f7f7;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%;
+    height: 100px;
   }
 </style>

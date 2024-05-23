@@ -64,6 +64,5 @@
     display: flex;
     justify-content: center;
     padding: 12px;
-    margin-bottom: 20px;
   }
 </style>

@@ -19,8 +19,14 @@
   }
 </script>
 
-<Search tasks={$TaskStore} on:taskFound={handleTaskFound} />
-<TaskDateFilter tasks={$TaskStore} on:tasksFiltered={handleTasksFiltered} />
+<div class="filter-container">
+  <div class="filter">
+    <Search tasks={$TaskStore} on:taskFound={handleTaskFound} />
+  </div>
+  <div class="filter">
+    <TaskDateFilter tasks={$TaskStore} on:tasksFiltered={handleTasksFiltered} />
+  </div>
+</div>
 
 {#if filteredTasks.length < 1}
   <p>You have currently no tasks ...</p>
@@ -48,5 +54,19 @@
     font-weight: 500;
     font-size: 25px;
     text-align: center;
+  }
+  .filter-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: centter;
+    padding: 12px;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  .filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

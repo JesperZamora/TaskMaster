@@ -40,7 +40,7 @@
     <div class="task-bottom">
       <div>
         <div class="task-days">
-          <p>Days left: {task.daysLeft}</p>
+          <p>Days: {task.days}</p>
         </div>
         <div class="task-due">
           <p>Due Date: {task.dueDate}</p>
@@ -65,7 +65,7 @@
     flex-direction: column;
   }
   .task-title {
-    font-size: 20px;
+    font-size: 17px;
     margin-bottom: 10px;
   }
   .task-description {
@@ -73,6 +73,7 @@
     letter-spacing: 0.5px;
     margin-bottom: 15px;
     max-width: 400px;
+    min-height: 100px;
   }
   .task-creation {
     font-size: 12px;

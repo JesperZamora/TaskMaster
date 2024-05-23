@@ -38,16 +38,17 @@
 <div class="statistics-container">
   <StatisticDetails />
 </div>
-<div class="modal-container">
-  <Modal {isShown}>
-    <UpdateTaskForm
-      {task}
-      on:cancel={handleCancel}
-      on:taskUpdated={handleTaskUpdated}
-    />
-  </Modal>
-</div>
+
 <div class="tasks-container">
+  <div class="modal-container">
+    <Modal {isShown}>
+      <UpdateTaskForm
+        {task}
+        on:cancel={handleCancel}
+        on:taskUpdated={handleTaskUpdated}
+      />
+    </Modal>
+  </div>
   <h3>Completed tasks</h3>
   <div class="task-list">
     <TaskList on:taskUpdate={handleUpdate} isTaskCompleted={true} />
@@ -56,14 +57,17 @@
 
 <style>
   .modal-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
+    position: absolute;
+    top: 100px;
   }
   .tasks-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     padding: 14px;
-    margin-top: 10px;
-    width: 100%;
+    margin-top: 30px;
+    align-items: center;
+    position: relative;
   }
   .statistics-container {
     display: flex;
@@ -74,6 +78,7 @@
     text-align: center;
     border-bottom: 1px solid #f7f7f7;
     padding: 20px;
+    width: 100%;
   }
   .task-list {
     margin-top: 40px;
