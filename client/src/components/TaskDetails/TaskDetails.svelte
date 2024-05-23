@@ -40,6 +40,9 @@
     <div class="task-bottom">
       <div>
         <div class="task-days">
+          <p># tag: {task.tag}</p>
+        </div>
+        <div class="task-days">
           <p>Days: {task.days}</p>
         </div>
         <div class="task-due">
@@ -72,8 +75,8 @@
     font-size: 15px;
     letter-spacing: 0.5px;
     margin-bottom: 15px;
-    max-width: 400px;
-    min-height: 100px;
+    width: 400px;   /***/
+    height: 100px; /***/
   }
   .task-creation {
     font-size: 12px;

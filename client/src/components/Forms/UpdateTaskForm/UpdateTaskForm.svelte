@@ -2,6 +2,7 @@
   import Button from "../../Button/Button.svelte";
   import { createEventDispatcher } from "svelte";
   import TaskStore from "../../../stores/taskStore";
+  import { tags } from "../../../stores/tagStore";
   import { fetchPut } from "../../../util/api";
   import { TASK_URL } from "../../../stores/generalStore";
   import toast from "svelte-french-toast";
@@ -11,14 +12,14 @@
   export let task;
 
   async function handleTaskUpdated() {
-    const reponse = await fetchPut($TASK_URL, task);
-    if (reponse) {
+    const response = await fetchPut($TASK_URL, task);
+    if (response) {
       dispatch("taskUpdated", false);
       TaskStore.update((currentTasks) => {
         const taskList = currentTasks.filter(
           (currentTask) => currentTask.id !== task.id
         );
-        return [reponse.data, ...taskList];
+        return [response.data, ...taskList];
       });
       toast.success("Successfully updated task");
     } else {
@@ -56,15 +57,26 @@
         maxlength="280"
       />
     </div>
-    <div class="form-field">
-      <label for="dueDate"> Due date:</label>
-      <input
-        class="date"
-        type="date"
-        id="dueDate"
-        bind:value={task.dueDate}
-        required
-      />
+    <div class="input-group">
+      <div class="form-field">
+        <label for="dueDate"> Due date:</label>
+        <input
+          class="date"
+          type="date"
+          id="dueDate"
+          bind:value={task.dueDate}
+          required
+        />
+      </div>
+      <div class="form-field">
+        <label for="tag"> # Tag:</label>
+        <select class="tag" id="tag" bind:value={task.tagId}>
+          <option value="" disabled>Choose tag</option>
+          {#each $tags as tag (tag.id)}
+            <option value={tag.id}>{tag.category}</option>
+          {/each}
+        </select>
+      </div>
     </div>
     <div class="form-field">
       <div class="completed-container">
@@ -93,12 +105,12 @@
   form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 10px;
     width: 100%;
   }
   h3 {
     margin-bottom: 20px;
+    text-align: center;
   }
   .form-field {
     display: flex;
@@ -118,6 +130,18 @@
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 16px;
+    width: 100%;
+  }
+  select {
+    border: 1px solid #f7f7f7;
+    background-color: #f7f7f7;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%;
+
+  }
+  .date {
     width: 100%;
   }
   .completed-container {
@@ -147,9 +171,6 @@
   input[type="checkbox"].isCompleted:checked {
     background-color: #45c496;
   }
-  .date {
-    width: 50%;
-  }
   .form-container {
     display: flex;
     flex-direction: column;
@@ -164,6 +185,7 @@
   }
   .update {
     margin-top: 15px;
+    align-self: center;
   }
   .cancel {
     width: 90%;
@@ -178,5 +200,9 @@
     font-size: 16px;
     width: 100%;
     height: 100px;
+  }
+  .input-group {
+    display: flex;
+    justify-content:space-between;
   }
 </style>

@@ -6,6 +6,8 @@
   import { onMount } from "svelte";
   import { fetchGet } from "../../util/api";
   import { TASK_URL } from "../../stores/generalStore";
+  import { TAG_URL } from "../../stores/generalStore";
+  import { tags } from "../../stores/tagStore"
   import toast from "svelte-french-toast";
 
   let task;
@@ -15,6 +17,15 @@
     const data = await fetchGet($TASK_URL);
     if (data) {
       TaskStore.set(data);
+    } else {
+      toast.error("Failed to retrieve data");
+    }
+  });
+
+  onMount(async () => {
+    const response = await fetchGet($TAG_URL);
+    if (response) {
+      tags.set(response);
     } else {
       toast.error("Failed to retrieve data");
     }

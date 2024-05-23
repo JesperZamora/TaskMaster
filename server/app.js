@@ -48,11 +48,15 @@ import {
   createTables,
   insertUserData,
   insertTasksData,
+  insertTagsData,
+  insertTaskTagsData
 } from "./database/initializeDatabase.js";
 try {
   await createTables();
   await insertUserData();
   await insertTasksData();
+  await insertTagsData();
+  await insertTaskTagsData();
 } catch (error) {
   console.error("Error under initialization:", error);
 }
@@ -62,6 +66,9 @@ app.use(authRouter);
 
 import taskRouter from "./routers/taskRouter/taskRouter.js";
 app.use(taskRouter);
+
+import tagRouter from "./routers/tagRouter/tagRouter.js";
+app.use(tagRouter);
 
 app.all("*", (req, res) => {
   return res.status(400).send({ data: "Not found" });

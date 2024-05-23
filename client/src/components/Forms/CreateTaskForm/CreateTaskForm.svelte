@@ -3,6 +3,7 @@
   import { TASK_URL } from "../../../stores/generalStore";
   import { fetchPost } from "../../../util/api";
   import { navigate } from "svelte-navigator";
+  import { tags } from "../../../stores/tagStore"
   import toast from "svelte-french-toast";
 
   let taskFields = {
@@ -10,6 +11,7 @@
     taskDescription: "",
     dueDate: "",
     isCompleted: false,
+    tagId: "",
   };
 
   async function handleSumbit() {
@@ -18,9 +20,6 @@
 
     if (response) {
       toast.success("Successfully created new task");
-      taskFields.title = "";
-      taskFields.taskDescription = "";
-      taskFields.dueDate = "";
       navigate("/tasks");
     } else {
       toast.error("Failed to create task");
@@ -59,16 +58,28 @@
         maxlength="280"
       />
     </div>
-    <div class="form-field">
-      <label for="dueDate"> Due date:</label>
-      <input
-        class="date"
-        type="date"
-        id="dueDate"
-        bind:value={taskFields.dueDate}
-        required
-      />
+    <div class="input-group">
+      <div class="form-field">
+        <label for="dueDate"> Due date:</label>
+        <input
+          class="date"
+          type="date"
+          id="dueDate"
+          bind:value={taskFields.dueDate}
+          required
+        />
+      </div>
+      <div class="form-field">
+        <label for="tag"> # Tag:</label>
+        <select id="tag" bind:value={taskFields.tagId}>
+          <option value="" disabled>Choose tag</option>
+          {#each $tags as tag (tag.id)}
+            <option value={tag.id}>{tag.category}</option>
+          {/each}
+        </select>
+      </div>
     </div>
+
     <div class="btn-container submit">
       <Button type={"primary"}>Submit Task</Button>
     </div>
@@ -81,14 +92,14 @@
 <style>
   form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /***/
     padding: 10px;
     width: 100%;
     margin-top: 20px;
   }
   h3 {
     margin-bottom: 20px;
+    text-align: center; /***/
   }
   .form-field {
     display: flex;
@@ -110,8 +121,17 @@
     font-size: 16px;
     width: 100%;
   }
+  select { /***/
+    border: 1px solid #f7f7f7;
+    background-color: #f7f7f7;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%;
+
+  }
   .date {
-    width: 50%;
+    width: 100%; /***/
   }
   .form-container {
     display: flex;
@@ -127,6 +147,7 @@
   }
   .submit {
     margin-top: 15px;
+    align-self: center; /***/
   }
   .cancel {
     width: 90%;
@@ -140,5 +161,9 @@
     font-size: 16px;
     width: 100%;
     height: 100px;
+  }
+  .input-group { /***/
+    display: flex;
+    justify-content:space-between;
   }
 </style>
