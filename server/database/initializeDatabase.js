@@ -6,29 +6,49 @@ export async function createTables() {
     await connection.query("DROP TABLE IF EXISTS tasks;");
     await connection.query("DROP TABLE IF EXISTS users;");
 
-    await connection.query(`CREATE TABLE Users (
+    await connection.query(
+      `CREATE TABLE users (
       id INT AUTO_INCREMENT PRIMARY KEY,
       firstName VARCHAR(50),
       lastName VARCHAR(50),
       email VARCHAR(100),
       password VARCHAR(100),
       creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      user ENUM('normal', 'admin'));`);
+      user ENUM('normal', 'admin'));`
+    );
 
-    await connection.query(`CREATE TABLE Tasks (
+    await connection.query(
+      `CREATE TABLE tasks (
       id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(100),
       taskDescription TEXT,
       creationDate DATE DEFAULT (CURRENT_DATE()),
       dueDate DATE,
+      daysLeft INT,
       isCompleted BOOLEAN DEFAULT 0,
       userId INT,
-      FOREIGN KEY (userId) REFERENCES Users(id)
-    );`);
+      FOREIGN KEY (userId) REFERENCES Users(id));`
+    );
 
-    return "Users- & tasks table created";
+    await connection.query(`
+      CREATE TRIGGER beforeInsertTask
+      BEFORE INSERT ON tasks
+      FOR EACH ROW
+      BEGIN
+          SET NEW.daysLeft = DATEDIFF(NEW.dueDate, NEW.creationDate);
+      END;`);
+
+    await connection.query(`
+      CREATE TRIGGER beforeUpdateTask
+      BEFORE UPDATE ON tasks
+      FOR EACH ROW
+      BEGIN
+          SET NEW.daysLeft = DATEDIFF(NEW.dueDate, NEW.creationDate);
+      END;`);
+
+    return "users- & tasks table created";
   } catch (error) {
-    console.log("Error occured creating user table", error);
+    console.log("Error occured creating tables", error);
   }
 }
 

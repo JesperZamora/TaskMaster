@@ -8,7 +8,6 @@ export async function getTasks(userId) {
     );
 
     const tasksFormatted = isCompletedFormatter(rows);
-
     const tasksWithFormattedDates = dateFormatter(tasksFormatted);
 
     return tasksWithFormattedDates;
@@ -59,7 +58,8 @@ export async function putTask(
     if (result.affectedRows === 0) {
       return "Task not found";
     }
-    return { id, title, taskDescription, isCompleted };
+    const task = await findTaskById(id);
+    return task;
   } catch (error) {
     console.error("Error inserting task:", error);
     throw error;
@@ -80,6 +80,21 @@ export async function deleteTask(id) {
   } catch (error) {
     console.error("Error deleting task:", error);
     throw error;
+  }
+}
+
+async function findTaskById(id) {
+  try {
+    const [row] = await connection.query("SELECT * FROM tasks WHERE id= ?", [
+      id,
+    ]);
+
+    const tasksFormatted = isCompletedFormatter(row);
+    const tasksWithFormattedDates = dateFormatter(tasksFormatted);
+
+    return tasksWithFormattedDates[0];
+  } catch (error) {
+    console.error("Error finding task by id:", error);
   }
 }
 

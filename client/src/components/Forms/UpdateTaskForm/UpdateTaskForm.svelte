@@ -11,14 +11,14 @@
   export let task;
 
   async function handleTaskUpdated() {
-    const response = await fetchPut($TASK_URL, task);
-    if (response) {
+    const reponse = await fetchPut($TASK_URL, task);
+    if (reponse) {
       dispatch("taskUpdated", false);
       TaskStore.update((currentTasks) => {
         const taskList = currentTasks.filter(
           (currentTask) => currentTask.id !== task.id
         );
-        return [task, ...taskList];
+        return [reponse.data, ...taskList];
       });
       toast.success("Successfully updated task");
     } else {

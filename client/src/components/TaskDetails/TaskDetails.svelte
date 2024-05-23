@@ -37,18 +37,25 @@
     <div class="task-description">
       <p>{task.taskDescription}</p>
     </div>
-    <div class="task-creation">
-      <p>Creation Date: {task.creationDate}</p>
+    <div class="task-bottom">
+      <div>
+        <div class="task-days">
+          <p>Days left: {task.daysLeft}</p>
+        </div>
+        <div class="task-due">
+          <p>Due Date: {task.dueDate}</p>
+        </div>
+        <div class="task-creation">
+          <p>Creation Date: {task.creationDate}</p>
+        </div>
+      </div>
+      <div class="buttons-container">
+        <Button type="primary" on:click={handleUpdate}>Update</Button>
+        <Button type="secondary" on:click={() => handleDelete(task.id)}
+          >Delete</Button
+        >
+      </div>
     </div>
-    <div class="task-due">
-      <p>Due Date: {task.dueDate}</p>
-    </div>
-  </div>
-  <div>
-    <Button type="primary" on:click={handleUpdate}>Update</Button>
-    <Button type="secondary" on:click={() => handleDelete(task.id)}
-      >Delete</Button
-    >
   </div>
 </Card>
 
@@ -58,22 +65,34 @@
     flex-direction: column;
   }
   .task-title {
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 10px;
   }
   .task-description {
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 0.5px;
     margin-bottom: 15px;
     max-width: 400px;
   }
   .task-creation {
+    font-size: 12px;
     font-weight: 500;
     color: #8d8d8d;
   }
   .task-due {
+    font-size: 12px;
     font-weight: 500;
-    margin-bottom: 15px;
     color: #8d8d8d;
+  }
+  .task-days {
+    font-size: 12px;
+    font-weight: 500;
+    color: #8d8d8d;
+  }
+  .task-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
   }
 </style>
