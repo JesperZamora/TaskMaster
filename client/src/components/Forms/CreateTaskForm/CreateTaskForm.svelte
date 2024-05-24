@@ -55,7 +55,7 @@
         placeholder="Bananas, avocado, apples ..."
         bind:value={taskFields.taskDescription}
         required
-        maxlength="280"
+        maxlength="255"
       />
     </div>
     <div class="input-group">

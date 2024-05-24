@@ -11,25 +11,25 @@ export async function createTables() {
     await connection.query(
       `CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        firstName VARCHAR(50),
-        lastName VARCHAR(50),
-        email VARCHAR(100),
-        password VARCHAR(100),
+        firstName VARCHAR(50) NOT NULL,
+        lastName VARCHAR(50) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        password VARCHAR(100) NOT NULL,
         creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        user ENUM('normal', 'admin')
+        user ENUM('normal', 'admin') NOT NULL
       );`
     );
 
     await connection.query(
       `CREATE TABLE tasks (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        title VARCHAR(100),
-        taskDescription TEXT,
+        title VARCHAR(50) NOT NULL,
+        taskDescription TEXT NOT NULL,
         creationDate DATE DEFAULT (CURRENT_DATE()),
-        dueDate DATE,
+        dueDate DATE NOT NULL,
         days INT,
         isCompleted BOOLEAN DEFAULT 0,
-        userId INT,
+        userId INT NOT NULL,
         FOREIGN KEY (userId) REFERENCES Users(id)
       );`
     );
@@ -37,7 +37,7 @@ export async function createTables() {
     await connection.query(
       `CREATE TABLE tags (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        category VARCHAR(20) UNIQUE NOT NULL
+        category VARCHAR(20) NOT NULL UNIQUE
       );`
     );
 
