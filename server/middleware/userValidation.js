@@ -27,13 +27,22 @@ export function checkCredentialsLogin(req, res, next) {
 }
 
 export async function checkDuplicateUser(req, res, next) {
-  const { email } = req.body;
-  const exists = await getUserByEmail(email);
+  try {
+    const { email } = req.body;
+    const result = await getUserByEmail(email);
+  
+    if (result.status === "success" && result.data) {
+      return res.status(409).send({ data: "Invalid email" });
+    } else if (result.status === "error") {
+      return res.status(500).send({ data: result.error });
+    }
 
-  if (exists) {
-    return res.status(409).send({ data: "Invalid email" });
+    next();
+  } catch(error) {
+    console.error("Error in checkDuplicateUser:", error);
+    return res.status(500).send({ data: "Error checking duplicate user" });
   }
-  next();
+
 }
 
 export function checkEmail(req, res, next) {

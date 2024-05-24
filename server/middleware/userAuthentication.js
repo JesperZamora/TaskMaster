@@ -2,17 +2,31 @@ import { verifyPassword } from "../utils/passwordUtils.js";
 import { getUserByEmail } from "../database/userRepository.js";
 
 export async function autenticateUser(req, res, next) {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await getUserByEmail(email);
-  const isValid = verifyPassword(password, user.password);
+    const result = await getUserByEmail(email);
 
-  if (!user || !isValid) {
-    return res.status(401).send({ data: "Incorrect username or password" });
+    if (result.status === "error") {
+      return res.status(500).send({ data: result.error });
+    }
+
+    if (!result.data) {
+      return res.status(401).send({ data: "Incorrect username or password" });
+    }
+
+    const isValid = verifyPassword(password, result.data.password);
+
+    if (!isValid) {
+      return res.status(401).send({ data: "Incorrect username or password" });
+    }
+
+    req.userId = result.data.id;
+    next();
+  } catch (error) {
+    console.error("Error in autenticateUser:", error);
+    return res.status(500).send({ data: "Error during authentication" });
   }
-
-  req.userId = user.id;
-  next();
 }
 
 export function authenticateSession(req, res, next) {

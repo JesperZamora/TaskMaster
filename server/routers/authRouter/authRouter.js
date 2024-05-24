@@ -20,11 +20,20 @@ router.post(
   checkDuplicateUser,
   checkEmail,
   async (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
     try {
+      const { firstName, lastName, email, password } = req.body;
       const hashedPassword = hashPassword(password);
-      await createUser(firstName, lastName, email, hashedPassword);
-      return res.status(201).send({ data: "Signup Successful" });
+      const result = await createUser(
+        firstName,
+        lastName,
+        email,
+        hashedPassword
+      );
+      if (result.status === "success") {
+        return res.status(201).send({ data: "Signup Successful" });
+      } else {
+        return res.status(500).send({ data: result.error });
+      }
     } catch (error) {
       console.error("Error in signup:", error);
       return res.status(500).send({ data: "Signup failed" });

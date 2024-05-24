@@ -8,11 +8,15 @@ export async function createUser(firstName, lastName, email, password) {
       [firstName, lastName, email, password, defaultUser]
     );
     const id = result[0].insertId;
-    const data = await getUserById(id);
-    return data;
+    const userResult = await getUserById(id);
+    if (userResult.status === "success") {
+      return { status: "success", data: userResult.data };
+    } else {
+      return { status: "error", error: userResult.error };
+    }
   } catch (error) {
     console.log("Error creating user:", error);
-    throw error;
+    return { status: "error", error: "Error creating user" };
   }
 }
 
@@ -22,10 +26,9 @@ async function getUserById(id) {
       "SELECT firstName, lastName, email FROM users WHERE users.id = ?;",
       [id]
     );
-    return row[0];
+    return { status: "success", data: row[0] };
   } catch (error) {
-    console.log("Error fetching user by id:", error);
-    throw error;
+    return { status: "error", error: "Error fetching user by id" };
   }
 }
 
@@ -35,9 +38,9 @@ export async function getUserByEmail(email) {
       "SELECT id, email, password FROM users WHERE email = ?;",
       [email]
     );
-    return row[0];
+    return { status: "success", data: row[0] };
   } catch (error) {
     console.log("Error fetching user by email:", error);
-    throw error;
+    return { status: "error", error: "Error fetching user by email" };
   }
 }
