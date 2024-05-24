@@ -29,14 +29,8 @@ router.get("/api/v1/tasks", authenticateSession, async (req, res) => {
 router.post("/api/v1/tasks", authenticateSession, async (req, res) => {
   try {
     const { userId } = req.session;
-    const { title, taskDescription, dueDate, isCompleted, tagId } = req.body;
-    const taskResult = await postTask(
-      title,
-      taskDescription,
-      dueDate,
-      isCompleted,
-      userId
-    );
+    const { title, taskDescription, dueDate, tagId } = req.body;
+    const taskResult = await postTask(title, taskDescription, dueDate, userId);
 
     if (taskResult.status === "error") {
       return res.status(500).send({ data: taskResult.error });

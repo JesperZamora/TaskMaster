@@ -42,7 +42,7 @@
         bind:value={signupFields.firstName}
         placeholder="John"
         required
-        maxlength="45"
+        maxlength="50"
       />
     </div>
     <div class="form-field">
@@ -53,7 +53,7 @@
         bind:value={signupFields.lastName}
         placeholder="Doe"
         required
-        maxlength="45"
+        maxlength="50"
       />
     </div>
     <div class="form-field">
@@ -64,7 +64,7 @@
         bind:value={signupFields.email}
         placeholder="example@mail.com"
         required
-        maxlength="45"
+        maxlength="100"
       />
     </div>
     <div class="form-field">
@@ -75,7 +75,7 @@
         bind:value={signupFields.password}
         placeholder="********"
         required
-        maxlength="45"
+        maxlength="50"
       />
     </div>
     <div class="btn-container signup">

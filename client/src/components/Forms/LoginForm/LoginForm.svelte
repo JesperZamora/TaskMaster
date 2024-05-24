@@ -1,11 +1,11 @@
 <script>
   import Button from "../../Button/Button.svelte";
-  import { login } from "../../../stores/userStore";
-  import { fetchPost } from "../../../util/api";
-  import { AUTH_URL } from "../../../stores/generalStore";
   import Modal from "../../Modal/Modal.svelte";
   import SignupForm from "../SignupForm/SignupForm.svelte";
   import toast from "svelte-french-toast";
+  import { login } from "../../../stores/userStore";
+  import { fetchPost } from "../../../util/api";
+  import { AUTH_URL } from "../../../stores/generalStore";
 
   let loginFields = {
     email: "",
@@ -21,9 +21,9 @@
       toast.success("Successfully login!");
     } else {
       toast.error("Failed to login");
+      loginFields.email = "";
+      loginFields.password = "";
     }
-    loginFields.email = "";
-    loginFields.password = "";
   }
 
   let isShown = false;
@@ -50,6 +50,7 @@
         bind:value={loginFields.email}
         placeholder="example@mail.com"
         required
+        maxlength="100"
       />
     </div>
     <div class="form-field">
@@ -60,6 +61,7 @@
         bind:value={loginFields.password}
         placeholder="********"
         required
+        maxlength="50"
       />
     </div>
     <div class="btn-container">

@@ -1,14 +1,17 @@
 <script>
   import Button from "../../Button/Button.svelte";
-  import { createEventDispatcher } from "svelte";
   import TaskStore from "../../../stores/taskStore";
+  import toast from "svelte-french-toast";
+  import { createEventDispatcher } from "svelte";
   import { tags } from "../../../stores/tagStore";
   import { fetchPut } from "../../../util/api";
   import { TASK_URL } from "../../../stores/generalStore";
-  import toast from "svelte-french-toast";
+
+
+  const todaysDate = new Date().toISOString().split("T")[0];
 
   const dispatch = createEventDispatcher();
-
+  
   export let task;
 
   async function handleTaskUpdated() {
@@ -65,12 +68,13 @@
           type="date"
           id="dueDate"
           bind:value={task.dueDate}
+          min={todaysDate}
           required
         />
       </div>
       <div class="form-field">
         <label for="tag"> # Tag:</label>
-        <select class="tag" id="tag" bind:value={task.tagId}>
+        <select class="tag" id="tag" bind:value={task.tagId} required>
           <option value="" disabled>Choose tag</option>
           {#each $tags as tag (tag.id)}
             <option value={tag.id}>{tag.category}</option>

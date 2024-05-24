@@ -1,16 +1,18 @@
 <script>
   import Button from "../../Button/Button.svelte";
+  import toast from "svelte-french-toast";
   import { TASK_URL } from "../../../stores/generalStore";
   import { fetchPost } from "../../../util/api";
   import { navigate } from "svelte-navigator";
   import { tags } from "../../../stores/tagStore"
-  import toast from "svelte-french-toast";
+  
+  const todaysDate = new Date().toISOString().split("T")[0];
 
   let taskFields = {
     title: "",
     taskDescription: "",
     dueDate: "",
-    isCompleted: false,
+    // isCompleted: false,
     tagId: "",
   };
 
@@ -44,7 +46,7 @@
         bind:value={taskFields.title}
         placeholder="Buy fruit ..."
         required
-        maxlength="45"
+        maxlength="50"
       />
     </div>
     <div class="form-field">
@@ -67,11 +69,12 @@
           id="dueDate"
           bind:value={taskFields.dueDate}
           required
+          min={todaysDate}
         />
       </div>
       <div class="form-field">
         <label for="tag"> # Tag:</label>
-        <select id="tag" bind:value={taskFields.tagId}>
+        <select id="tag" bind:value={taskFields.tagId} required>
           <option value="" disabled>Choose tag</option>
           {#each $tags as tag (tag.id)}
             <option value={tag.id}>{tag.category}</option>

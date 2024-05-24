@@ -4,7 +4,6 @@
   export let tasks = [];
   let searchWord = "";
   let dispatch = createEventDispatcher();
-  console.log(tasks);
   $: filteredTasks = tasks.filter(
     (task) =>
       task.title.toLocaleLowerCase().includes(searchWord.toLocaleLowerCase()) ||

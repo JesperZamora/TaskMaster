@@ -2,13 +2,13 @@
   import TaskList from "../../components/TaskList/TaskList.svelte";
   import TaskStore from "../../stores/taskStore";
   import Modal from "../../components/Modal/Modal.svelte";
+  import toast from "svelte-french-toast";
   import UpdateTaskForm from "../../components/Forms/UpdateTaskForm/UpdateTaskForm.svelte";
   import { onMount } from "svelte";
   import { fetchGet } from "../../util/api";
   import { TASK_URL } from "../../stores/generalStore";
   import { TAG_URL } from "../../stores/generalStore";
-  import { tags } from "../../stores/tagStore"
-  import toast from "svelte-french-toast";
+  import { tags } from "../../stores/tagStore";
 
   let task;
   let isShown = false;

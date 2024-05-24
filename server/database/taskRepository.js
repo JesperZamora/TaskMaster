@@ -22,22 +22,25 @@ export async function getTasks(userId) {
   }
 }
 
-export async function postTask(
-  title,
-  taskDescription,
-  dueDate,
-  isCompleted,
-  userId
-) {
+export async function postTask(title, taskDescription, dueDate, userId) {
   try {
     const [result] = await connection.execute(
-      "INSERT INTO tasks (title, taskDescription, dueDate, isCompleted, userId) values(?,?,?,?,?);",
-      [title, taskDescription, dueDate, isCompleted, userId]
+      "INSERT INTO tasks (title, taskDescription, dueDate, userId) values(?,?,?,?);",
+      [title, taskDescription, dueDate, userId]
     );
+    console.log({
+      title,
+      taskDescription,
+      dueDate,
+      userId,
+    });
 
+    if (result.affectedRows === 0) {
+      return { status: "error", error: "Task not found" };
+    }
     const id = result.insertId;
-    const task = { id: id, title, taskDescription, dueDate, isCompleted };
-    return { status: "success", data: task };
+    const task = await findTaskById(id);
+    return { status: "success", data: task.data };
   } catch (error) {
     console.error("Error inserting task:", error);
     return { status: "error", error: "Error inserting task" };

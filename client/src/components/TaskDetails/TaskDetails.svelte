@@ -2,10 +2,10 @@
   import Card from "../Card/Card.svelte";
   import Button from "../Button/Button.svelte";
   import TaskStore from "../../stores/taskStore";
+  import toast from "svelte-french-toast";
   import { createEventDispatcher } from "svelte";
   import { fetchDelete } from "../../util/api";
   import { TASK_URL } from "../../stores/generalStore";
-  import toast from "svelte-french-toast";
 
   const dispatch = createEventDispatcher();
 
@@ -75,7 +75,7 @@
     font-size: 15px;
     letter-spacing: 0.5px;
     margin-bottom: 15px;
-    width: 400px;   /***/
+    width: 400px; /***/
     height: 100px; /***/
   }
   .task-creation {

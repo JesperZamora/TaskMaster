@@ -1,9 +1,9 @@
 <script>
   import Button from "../Button/Button.svelte";
+  import toast from "svelte-french-toast";
   import { fetchGet } from "../../util/api.js";
   import { AUTH_URL } from "../../stores/generalStore.js";
   import { logout, user } from "../../stores/userStore.js";
-  import toast from "svelte-french-toast";
 
   async function handleLogout() {
     const response = await fetchGet(`${$AUTH_URL}/logout`);

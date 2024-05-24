@@ -1,10 +1,9 @@
 <script>
-  import { scale } from "svelte/transition";
-  import { flip } from "svelte/animate";
   import TaskDetails from "../TaskDetails/TaskDetails.svelte";
   import TaskStore from "../../stores/taskStore";
   import Search from "../Search/Search.svelte";
   import TaskDateFilter from "../TaskDateFilter/TaskDateFilter.svelte";
+  import { scale } from "svelte/transition";
 
   export let isTaskCompleted;
 
@@ -41,8 +40,6 @@
     {/each}
   </div>
 {/if}
-
-<!-- animate:flip={{ duration: 600 }} -->
 
 <style>
   .task-list {
