@@ -2,7 +2,7 @@ import connection from "./connection.js";
 
 export async function getTags() {
   try {
-    const [rows] = await connection.query("SELECT * FROM tags;");
+    const [rows] = await connection.execute("SELECT * FROM tags;");
     return rows;
   } catch (error) {
     console.error("Error fetching tags:", error);
@@ -12,7 +12,7 @@ export async function getTags() {
 
 export async function postTag(taskId, tagId) {
   try {
-    const [result] = await connection.query(
+    const [result] = await connection.execute(
       "INSERT INTO taskTags (taskId, tagId) VALUES(?,?);",
       [taskId, tagId]
     );
@@ -25,7 +25,7 @@ export async function postTag(taskId, tagId) {
 
 export async function putTag(taskId, tagId) {
   try {
-    const [result] = await connection.query(
+    const [result] = await connection.execute(
       "UPDATE taskTags SET taskTags.tagId = ? WHERE taskTags.taskId = ?;",
       [tagId, taskId]
     );
@@ -42,7 +42,7 @@ export async function putTag(taskId, tagId) {
 
 async function findTagById(id) {
   try {
-    const [rows] = await connection.query(
+    const [rows] = await connection.execute(
       "SELECT * FROM tags WHERE tags.id= ?;",
       [id]
     );

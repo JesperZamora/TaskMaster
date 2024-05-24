@@ -2,7 +2,7 @@ import connection from "./connection.js";
 
 export async function createUser(firstName, lastName, email, password) {
   try {
-    const result = await connection.query(
+    const result = await connection.execute(
       "INSERT INTO users(firstName, lastName, email, password, user) VALUES(?,?,?,?,?)",
       [firstName, lastName, email, password, "normal"]
     );
@@ -17,7 +17,7 @@ export async function createUser(firstName, lastName, email, password) {
 
 async function getUserById(id) {
   try {
-    const [row] = await connection.query(
+    const [row] = await connection.execute(
       "SELECT firstName, lastName, email FROM users WHERE users.id=?;",
       [id]
     );
@@ -30,7 +30,7 @@ async function getUserById(id) {
 
 export async function getUserByEmail(email) {
   try {
-    const [row] = await connection.query(
+    const [row] = await connection.execute(
       "SELECT id, email, password FROM users WHERE email=?;",
       [email]
     );

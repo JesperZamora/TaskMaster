@@ -3,7 +3,7 @@ import { hashPassword } from "../utils/passwordUtils.js";
 
 export async function createTables() {
   try {
-    await connection.query("DROP TABLE IF EXISTS taskTags")
+    await connection.query("DROP TABLE IF EXISTS taskTags");
     await connection.query("DROP TABLE IF EXISTS tags");
     await connection.query("DROP TABLE IF EXISTS tasks;");
     await connection.query("DROP TABLE IF EXISTS users;");
@@ -38,7 +38,7 @@ export async function createTables() {
       `CREATE TABLE tags (
         id INT AUTO_INCREMENT PRIMARY KEY,
         category VARCHAR(20) UNIQUE NOT NULL
-      )`
+      );`
     );
 
     await connection.query(
@@ -47,7 +47,8 @@ export async function createTables() {
         tagId INT NOT NULL,
         PRIMARY KEY (taskId, tagId),
         FOREIGN KEY (taskId) REFERENCES tasks(id) ON DELETE CASCADE,
-        FOREIGN KEY (tagId) REFERENCES tags(id) ON DELETE CASCADE)`
+        FOREIGN KEY (tagId) REFERENCES tags(id) ON DELETE CASCADE
+      );`
     );
 
     await connection.query(
@@ -68,9 +69,9 @@ export async function createTables() {
       END;`
     );
 
-    return "users- & tasks table created";
+    return "Tables created";
   } catch (error) {
-    console.log("Error occured creating tables", error);
+    console.error("Error occured creating tables", error);
   }
 }
 
@@ -147,10 +148,9 @@ export async function insertTagsData() {
 }
 
 export async function insertTaskTagsData() {
-  const sql = "INSERT INTO taskTags (taskId, tagId) VALUES(?,?)";
-  await connection.execute(sql, ["1","4"]);
-  await connection.execute(sql, ["2","6"]);
-  await connection.execute(sql, ["3","3"]);
-  await connection.execute(sql, ["4","2"]);
+  const sql = "INSERT INTO taskTags (taskId, tagId) VALUES(?,?);";
+  await connection.execute(sql, ["1", "4"]);
+  await connection.execute(sql, ["2", "6"]);
+  await connection.execute(sql, ["3", "3"]);
+  await connection.execute(sql, ["4", "2"]);
 }
-

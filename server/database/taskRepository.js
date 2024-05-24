@@ -2,7 +2,7 @@ import connection from "./connection.js";
 
 export async function getTasks(userId) {
   try {
-    const [rows] = await connection.query(
+    const [rows] = await connection.execute(
       `SELECT tasks.id, tasks.title, tasks.taskDescription, 
       tasks.creationDate, tasks.dueDate, tasks.days, tasks.isCompleted, 
       tags.id as tagId, tags.category as tag FROM tasks 
@@ -30,7 +30,7 @@ export async function postTask(
   userId
 ) {
   try {
-    const [result] = await connection.query(
+    const [result] = await connection.execute(
       "INSERT INTO tasks (title, taskDescription, dueDate, isCompleted, userId) values(?,?,?,?,?);",
       [title, taskDescription, dueDate, isCompleted, userId]
     );
@@ -55,7 +55,7 @@ export async function putTask(
   id
 ) {
   try {
-    const [result] = await connection.query(
+    const [result] = await connection.execute(
       "UPDATE tasks SET title = ?, taskDescription = ?, dueDate = ?, isCompleted = ? WHERE tasks.id = ?;",
       [title, taskDescription, dueDate, isCompleted, id]
     );
@@ -73,8 +73,8 @@ export async function putTask(
 
 export async function deleteTask(id) {
   try {
-    await connection.query("DELETE FROM tasks WHERE id = ?;", [id]);
-    const [rows] = await connection.query(
+    await connection.execute("DELETE FROM tasks WHERE id = ?;", [id]);
+    const [rows] = await connection.execute(
       "SELECT * FROM tasks WHERE tasks.id = ?;",
       [id]
     );
