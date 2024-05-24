@@ -6,7 +6,12 @@ const router = Router();
 router.get("/api/v1/tags", async (req, res) => {
   try {
     const result = await getTags();
-    res.status(200).send({ data: result });
+
+    if (result.status === "success") {
+      return res.status(200).send({ data: result.data });
+    } else {
+      return res.status(500).send({ data: result.error });
+    }
   } catch (error) {
     console.error("Error fetching tasks:", error);
     return res.status(500).send({ data: "Error fetching tags" });

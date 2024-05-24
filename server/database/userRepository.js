@@ -27,7 +27,9 @@ async function getUserById(id) {
       [id]
     );
     return { status: "success", data: row[0] };
+    
   } catch (error) {
+    console.log("Error fetching user by id:", error);
     return { status: "error", error: "Error fetching user by id" };
   }
 }

@@ -15,10 +15,10 @@ export async function getTasks(userId) {
     const tasksFormatted = isCompletedFormatter(rows);
     const tasksWithFormattedDates = dateFormatter(tasksFormatted);
 
-    return tasksWithFormattedDates;
+    return { status: "success", data: tasksWithFormattedDates };
   } catch (error) {
     console.error("Error fetching tasks:", error);
-    throw error;
+    return { status: "error", error: "Error fetching tasks" };
   }
 }
 
@@ -34,16 +34,13 @@ export async function postTask(
       "INSERT INTO tasks (title, taskDescription, dueDate, isCompleted, userId) values(?,?,?,?,?);",
       [title, taskDescription, dueDate, isCompleted, userId]
     );
-    return {
-      id: result.insertId,
-      title,
-      taskDescription,
-      dueDate,
-      isCompleted,
-    };
+
+    const id = result.insertId;
+    const task = { id: id, title, taskDescription, dueDate, isCompleted };
+    return { status: "success", data: task };
   } catch (error) {
     console.error("Error inserting task:", error);
-    throw error;
+    return { status: "error", error: "Error inserting task" };
   }
 }
 
@@ -61,13 +58,13 @@ export async function putTask(
     );
 
     if (result.affectedRows === 0) {
-      return "Task not found";
+      return { status: "error", error: "Task not found" };
     }
     const task = await findTaskById(id);
-    return task;
+    return { status: "success", data: task.data };
   } catch (error) {
-    console.error("Error inserting task:", error);
-    throw error;
+    console.error("Error updating task:", error);
+    return { status: "error", error: "Error updating task" };
   }
 }
 
@@ -80,18 +77,18 @@ export async function deleteTask(id) {
     );
 
     if (rows.length > 0) {
-      return "Task not deleted";
+      return { status: "error", error: "Task not deleted" };
     }
-    return "Task deleted";
+    return { status: "success", data: "Task deleted" };
   } catch (error) {
     console.error("Error deleting task:", error);
-    throw error;
+    return { status: "error", error: "Error deleting task" };
   }
 }
 
 async function findTaskById(id) {
   try {
-    const [rows] = await connection.query(
+    const [rows] = await connection.execute(
       "SELECT * FROM tasks WHERE tasks.id = ?;",
       [id]
     );
@@ -99,9 +96,10 @@ async function findTaskById(id) {
     const tasksFormatted = isCompletedFormatter(rows);
     const tasksWithFormattedDates = dateFormatter(tasksFormatted);
 
-    return tasksWithFormattedDates[0];
+    return { status: "success", data: tasksWithFormattedDates[0] };
   } catch (error) {
     console.error("Error finding task by id:", error);
+    return { status: "error", error: "Error finding task by id" };
   }
 }
 
