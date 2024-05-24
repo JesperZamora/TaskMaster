@@ -75,8 +75,8 @@
     font-size: 15px;
     letter-spacing: 0.5px;
     margin-bottom: 15px;
-    width: 400px; /***/
-    height: 100px; /***/
+    width: 400px;
+    height: 100px;
   }
   .task-creation {
     font-size: 12px;

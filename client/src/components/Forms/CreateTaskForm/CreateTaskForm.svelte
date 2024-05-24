@@ -4,8 +4,8 @@
   import { TASK_URL } from "../../../stores/generalStore";
   import { fetchPost } from "../../../util/api";
   import { navigate } from "svelte-navigator";
-  import { tags } from "../../../stores/tagStore"
-  
+  import { tags } from "../../../stores/tagStore";
+
   const todaysDate = new Date().toISOString().split("T")[0];
 
   let taskFields = {
@@ -95,14 +95,14 @@
 <style>
   form {
     display: flex;
-    flex-direction: column; /***/
+    flex-direction: column;
     padding: 10px;
     width: 100%;
     margin-top: 20px;
   }
   h3 {
     margin-bottom: 20px;
-    text-align: center; /***/
+    text-align: center;
   }
   .form-field {
     display: flex;
@@ -124,17 +124,16 @@
     font-size: 16px;
     width: 100%;
   }
-  select { /***/
+  select {
     border: 1px solid #f7f7f7;
     background-color: #f7f7f7;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 16px;
     width: 100%;
-
   }
   .date {
-    width: 100%; /***/
+    width: 100%;
   }
   .form-container {
     display: flex;
@@ -142,6 +141,8 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    border-radius: 12px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
   .btn-container {
     width: 95%;
@@ -150,10 +151,11 @@
   }
   .submit {
     margin-top: 15px;
-    align-self: center; /***/
+    align-self: center;
   }
   .cancel {
     width: 90%;
+    padding-bottom: 24px;
   }
   textarea {
     resize: none;
@@ -165,8 +167,8 @@
     width: 100%;
     height: 100px;
   }
-  .input-group { /***/
+  .input-group {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
   }
 </style>

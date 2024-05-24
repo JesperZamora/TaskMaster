@@ -71,6 +71,7 @@
   main {
     margin: 40px auto;
     max-width: 960px;
+    min-height: 80vh;
   }
   nav {
     width: 100%;

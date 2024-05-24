@@ -61,15 +61,15 @@
 <style>
   .modal-container {
     position: absolute;
-    top: 100px;
+    top: 110px;
   }
   .tasks-container {
     display: flex;
     flex-direction: column;
-    align-content: center;
+    justify-content: center;
+    align-items: center;
     padding: 14px;
     margin-top: 30px;
-    align-items: center;
     position: relative;
   }
 </style>

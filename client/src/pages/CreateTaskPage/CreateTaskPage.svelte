@@ -9,6 +9,6 @@
 <style>
   .create-container {
     max-width: 400px;
-    margin: 20px auto;
+    margin: 60px auto;
   }
 </style>

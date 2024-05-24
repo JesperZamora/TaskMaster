@@ -10,7 +10,7 @@
 
 <style>
   footer {
-    padding: 50px;
+    padding-top: 50px;
     text-align: center;
   }
   .copyright {
