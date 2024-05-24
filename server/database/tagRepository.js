@@ -43,7 +43,7 @@ export async function putTag(taskId, tagId) {
 async function findTagById(id) {
   try {
     const [rows] = await connection.execute(
-      "SELECT * FROM tags WHERE tags.id= ?;",
+      "SELECT * FROM tags WHERE tags.id = ?;",
       [id]
     );
     return rows[0];
