@@ -17,7 +17,7 @@
   async function handleTaskUpdated() {
     const response = await fetchPut($TASK_URL, task);
     if (response) {
-      dispatch("taskUpdated", false);
+      dispatch("taskUpdated");
       TaskStore.update((currentTasks) => {
         const taskList = currentTasks.filter(
           (currentTask) => currentTask.id !== task.id
@@ -31,7 +31,7 @@
   }
 
   function handleCancel() {
-    dispatch("cancel", false);
+    dispatch("cancel");
   }
 </script>
 

@@ -28,13 +28,7 @@ export async function postTask(title, taskDescription, dueDate, userId) {
       "INSERT INTO tasks (title, taskDescription, dueDate, userId) values(?,?,?,?);",
       [title, taskDescription, dueDate, userId]
     );
-    console.log({
-      title,
-      taskDescription,
-      dueDate,
-      userId,
-    });
-
+    
     if (result.affectedRows === 0) {
       return { status: "error", error: "Task not found" };
     }

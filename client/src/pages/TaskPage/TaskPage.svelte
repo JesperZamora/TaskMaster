@@ -31,12 +31,12 @@
     }
   });
 
-  function handleCancel(event) {
-    isShown = event.detail;
+  function handleCancel() {
+    isShown = !isShown;
   }
 
   function handleTaskUpdated(event) {
-    isShown = event.detail;
+    isShown = !isShown;
   }
 
   function handleUpdate(event) {
