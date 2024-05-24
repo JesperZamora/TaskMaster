@@ -92,7 +92,7 @@ export async function deleteTask(id) {
 async function findTaskById(id) {
   try {
     const [rows] = await connection.query(
-      "SELECT * FROM tasks WHERE tasks.id= ?",
+      "SELECT * FROM tasks WHERE tasks.id= ?;",
       [id]
     );
 

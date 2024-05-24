@@ -49,8 +49,8 @@ router.put("/api/v1/tasks", authenticateSession, async (req, res) => {
       isCompleted,
       id
     );
-    await putTag(id, tagId);
-    return res.status(200).send({ data: {...taskResult, tagId: tagId }});
+    const tagResult = await putTag(id, tagId);
+    return res.status(200).send({ data: {...taskResult, tagId: tagResult.id, tag: tagResult.category }});
   } catch (error) {
     console.error("Error updating tasks:", error);
     return res.status(500).send({ data: "Error updating task" });

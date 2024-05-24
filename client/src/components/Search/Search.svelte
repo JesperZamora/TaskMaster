@@ -1,20 +1,21 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  
+
   export let tasks = [];
   let searchWord = "";
   let dispatch = createEventDispatcher();
-
+  console.log(tasks);
   $: filteredTasks = tasks.filter(
     (task) =>
       task.title.toLocaleLowerCase().includes(searchWord.toLocaleLowerCase()) ||
       task.taskDescription
         .toLocaleLowerCase()
-        .includes(searchWord.toLocaleLowerCase())
+        .includes(searchWord.toLocaleLowerCase()) ||
+      task.tag.toLocaleLowerCase().includes(searchWord.toLocaleLowerCase())
   );
 
   $: {
-    dispatch("taskFound", { tasks: filteredTasks});
+    dispatch("taskFound", { tasks: filteredTasks });
   }
 </script>
 
@@ -23,7 +24,7 @@
     id="search"
     name="search"
     type="search"
-    placeholder="Search for task by title or description..."
+    placeholder="Search for task by title, description or tag..."
     maxlength="45"
     bind:value={searchWord}
   />
@@ -40,6 +41,6 @@
     border: none;
     border-radius: 6px;
     background-color: #f7f7f7;
-    width: 300px;
+    width: 340px;
   }
 </style>

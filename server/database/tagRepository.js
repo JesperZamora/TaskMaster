@@ -12,7 +12,10 @@ export async function getTags() {
 
 export async function postTag(taskId, tagId) {
   try {
-    const [result] = await connection.query("INSERT INTO taskTags (taskId, tagId) VALUES(?,?)",[taskId, tagId]);
+    const [result] = await connection.query(
+      "INSERT INTO taskTags (taskId, tagId) VALUES(?,?);",
+      [taskId, tagId]
+    );
     return result;
   } catch (error) {
     console.error("Error inserting task:", error);
@@ -22,14 +25,29 @@ export async function postTag(taskId, tagId) {
 
 export async function putTag(taskId, tagId) {
   try {
-    const [result] = await connection.query("UPDATE taskTags SET taskTags.tagId = ? WHERE taskTags.taskId = ?",[tagId, taskId]);
+    const [result] = await connection.query(
+      "UPDATE taskTags SET taskTags.tagId = ? WHERE taskTags.taskId = ?;",
+      [tagId, taskId]
+    );
 
     if (result.affectedRows === 0) {
       return "Task not found";
     }
-    return result;
+    return findTagById(tagId);
   } catch (error) {
     console.error("Error updating tag:", error);
     throw error;
+  }
+}
+
+async function findTagById(id) {
+  try {
+    const [rows] = await connection.query(
+      "SELECT * FROM tags WHERE tags.id= ?;",
+      [id]
+    );
+    return rows[0];
+  } catch (error) {
+    console.error("Error finding task by id:", error);
   }
 }

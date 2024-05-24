@@ -139,7 +139,6 @@
     border-radius: 6px;
     font-size: 16px;
     width: 100%;
-
   }
   .date {
     width: 100%;
