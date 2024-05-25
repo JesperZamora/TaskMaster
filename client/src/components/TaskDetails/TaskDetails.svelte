@@ -14,13 +14,13 @@
   async function handleDelete(id) {
     const response = await fetchDelete($TASK_URL, { id });
 
-    if (response) {
+    if (!response.error) {
       TaskStore.update((currentTasks) => {
         return currentTasks.filter((task) => task.id !== id);
       });
       toast.success("Successfully deleted task!");
     } else {
-      toast.error("Failed to delete task");
+      toast.error(response.message);
     }
   }
 

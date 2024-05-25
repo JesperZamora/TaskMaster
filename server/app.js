@@ -42,6 +42,10 @@ io.on("connection", (socket) => {
   socket.on("client", (data) => {
     io.emit("message", `${socket.id.substring(0, 5)}: ${data}`);
   });
+
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("message", `User ${socket.id.substring(0,5)} disconnected`);
+  });
 });
 
 import {

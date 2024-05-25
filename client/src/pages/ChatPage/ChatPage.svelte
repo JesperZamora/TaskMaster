@@ -2,11 +2,12 @@
   import Button from "../../components/Button/Button.svelte";
   import { io } from "socket.io-client";
   import { onMount } from "svelte";
+  import { BASE_URL } from "../../stores/generalStore";
 
   let message = "";
   let messages = [];
 
-  const socket = io("http://localhost:8080");
+  const socket = io($BASE_URL);
 
   function handleSubmit() {
     if (message.trim()) {
@@ -23,7 +24,7 @@
 </script>
 
 <div class="chat-container">
-  <h3>Chat with admin</h3>
+  <h3>Public chat</h3>
   <div>
     <ul class="chat-list">
       {#each messages as msg}

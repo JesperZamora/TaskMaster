@@ -16,11 +16,11 @@
     const loginCredentials = loginFields;
     const response = await fetchPost(`${$AUTH_URL}/login`, loginCredentials);
 
-    if (response) {
+    if (!response.error) {
       login(loginCredentials.email);
       toast.success("Successfully login!");
     } else {
-      toast.error("Failed to login");
+      toast.error(response.message);
       loginFields.email = "";
       loginFields.password = "";
     }
@@ -31,8 +31,8 @@
   function toggleModal() {
     isShown = !isShown;
   }
-
 </script>
+
 <div class="modal-container">
   <Modal {isShown}>
     <SignupForm on:close={toggleModal} />
@@ -69,7 +69,8 @@
     </div>
   </form>
   <div class="signup-container">
-    <p class="signup-text">Don't have an account yet?</p> <button on:click={toggleModal} class=signup-link>Sign up</button>
+    <p class="signup-text">Don't have an account yet?</p>
+    <button on:click={toggleModal} class="signup-link">Sign up</button>
   </div>
 </div>
 
@@ -148,5 +149,4 @@
     justify-content: center;
     margin-top: 40px;
   }
-
 </style>

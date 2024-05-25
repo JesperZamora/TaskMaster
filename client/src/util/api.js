@@ -1,16 +1,16 @@
-import toast from "svelte-french-toast";
-
 export async function fetchGet(url) {
   try {
     const response = await fetch(url, { credentials: "include" });
 
     if (!response.ok) {
-      return null;
+      const result = await response.json();
+      return { error: true, message: result.data || "Failed to retrieve data" };
     }
+
     const result = await response.json();
-    return result.data;
+    return { error: false, data: result.data };
   } catch (error) {
-    return null;
+    return { error: true, message: "Network error" };
   }
 }
 
@@ -24,12 +24,13 @@ export async function fetchPost(url, body) {
     });
 
     if (!response.ok) {
-      return null;
+      const result = await response.json();
+      return { error: true, message: result.data || "Failed to insert data" };
     }
     const result = await response.json();
-    return result;
+    return { error: false, data: result.data };
   } catch (error) {
-    return null;
+    return { error: true, message: "Network error" };
   }
 }
 
@@ -43,12 +44,13 @@ export async function fetchPut(url, body) {
     });
 
     if (!response.ok) {
-      return null;
+      const result = await response.json();
+      return { error: true, message: result.data || "Failed to update data" };
     }
     const result = await response.json();
-    return result;
+    return { error: false, data: result.data };
   } catch (error) {
-    return null;
+    return { error: true, message: "Network error" };
   }
 }
 
@@ -62,11 +64,12 @@ export async function fetchDelete(url, body) {
     });
 
     if (!response.ok) {
-      return null;
+      const result = await response.json();
+      return { error: true, message: result.data || "Failed to delete data" };
     }
     const result = await response.json();
-    return result.data;
+    return { error: false, data: result.data };
   } catch (error) {
-    return null;
+    return { error: true, message: "Network error" };
   }
 }

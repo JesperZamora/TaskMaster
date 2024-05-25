@@ -7,16 +7,16 @@
   import { fetchPut } from "../../../util/api";
   import { TASK_URL } from "../../../stores/generalStore";
 
-
   const todaysDate = new Date().toISOString().split("T")[0];
 
   const dispatch = createEventDispatcher();
-  
+
   export let task;
 
   async function handleTaskUpdated() {
     const response = await fetchPut($TASK_URL, task);
-    if (response) {
+
+    if (!response.error) {
       dispatch("taskUpdated");
       TaskStore.update((currentTasks) => {
         const taskList = currentTasks.filter(
@@ -26,7 +26,7 @@
       });
       toast.success("Successfully updated task");
     } else {
-      toast.error("Failed to update task");
+      toast.error(response.message);
     }
   }
 
@@ -206,6 +206,6 @@
   }
   .input-group {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
   }
 </style>

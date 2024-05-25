@@ -30,7 +30,7 @@ export async function postTask(title, taskDescription, dueDate, userId) {
     );
     
     if (result.affectedRows === 0) {
-      return { status: "error", error: "Task not found" };
+      return { status: "error", error: "Error inserting task" };
     }
     const id = result.insertId;
     const task = await findTaskById(id);
@@ -55,7 +55,7 @@ export async function putTask(
     );
 
     if (result.affectedRows === 0) {
-      return { status: "error", error: "Task not found" };
+      return { status: "error", error: "Error updating task" };
     }
     const task = await findTaskById(id);
     return { status: "success", data: task.data };
@@ -74,7 +74,7 @@ export async function deleteTask(id) {
     );
 
     if (rows.length > 0) {
-      return { status: "error", error: "Task not deleted" };
+      return { status: "error", error: "Error deleting task" };
     }
     return { status: "success", data: "Task deleted" };
   } catch (error) {
@@ -96,7 +96,7 @@ async function findTaskById(id) {
     return { status: "success", data: tasksWithFormattedDates[0] };
   } catch (error) {
     console.error("Error finding task by id:", error);
-    return { status: "error", error: "Error finding task by id" };
+    return { status: "error", error: "Error finding task" };
   }
 }
 

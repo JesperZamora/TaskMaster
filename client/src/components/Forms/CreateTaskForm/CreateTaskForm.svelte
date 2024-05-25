@@ -12,7 +12,6 @@
     title: "",
     taskDescription: "",
     dueDate: "",
-    // isCompleted: false,
     tagId: "",
   };
 
@@ -20,11 +19,11 @@
     const task = { ...taskFields };
     const response = await fetchPost($TASK_URL, task);
 
-    if (response) {
+    if (!response.error) {
       toast.success("Successfully created new task");
       navigate("/tasks");
     } else {
-      toast.error("Failed to create task");
+      toast.error(response.message);
     }
   }
 

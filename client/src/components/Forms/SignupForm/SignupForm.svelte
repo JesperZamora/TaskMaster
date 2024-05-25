@@ -18,11 +18,11 @@
     const signupCredentials = signupFields;
     const response = await fetchPost(`${$AUTH_URL}/signup`, signupCredentials);
 
-    if (response) {
-      toast.success("Account created!");
+    if (!response.error) {
       closeModal();
+      toast.success("Account created!");
     } else {
-      toast.error("Failed to create account");
+      toast.error(response.message);
     }
   }
 

@@ -3,21 +3,21 @@
   import TaskStore from "../../stores/taskStore";
   import Modal from "../../components/Modal/Modal.svelte";
   import UpdateTaskForm from "../../components/Forms/UpdateTaskForm/UpdateTaskForm.svelte";
+  import toast from "svelte-french-toast";
+  import StatisticDetails from "../../components/StatisticDetails/StatisticDetails.svelte";
   import { onMount } from "svelte";
   import { fetchGet } from "../../util/api";
   import { TASK_URL } from "../../stores/generalStore";
-  import toast from "svelte-french-toast";
-  import StatisticDetails from "../../components/StatisticDetails/StatisticDetails.svelte";
 
   let task;
   let isShown = false;
 
   onMount(async () => {
-    const data = await fetchGet($TASK_URL);
-    if (data) {
-      TaskStore.set(data);
+    const response = await fetchGet($TASK_URL);
+    if (!response.error) {
+      TaskStore.set(response.data);
     } else {
-      toast.error("Failed to retrieve data");
+      toast.error(response.message);
     }
   });
 

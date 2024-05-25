@@ -14,20 +14,20 @@
   let isShown = false;
 
   onMount(async () => {
-    const data = await fetchGet($TASK_URL);
-    if (data) {
-      TaskStore.set(data);
+    const response = await fetchGet($TASK_URL);
+    if (!response.error) {
+      TaskStore.set(response.data);
     } else {
-      toast.error("Failed to retrieve data");
+      toast.error(response.message);
     }
   });
 
   onMount(async () => {
     const response = await fetchGet($TAG_URL);
-    if (response) {
-      tags.set(response);
+    if (!response.error) {
+      tags.set(response.data);
     } else {
-      toast.error("Failed to retrieve data");
+      toast.error(response.message);
     }
   });
 
@@ -35,7 +35,7 @@
     isShown = !isShown;
   }
 
-  function handleTaskUpdated(event) {
+  function handleTaskUpdated() {
     isShown = !isShown;
   }
 
