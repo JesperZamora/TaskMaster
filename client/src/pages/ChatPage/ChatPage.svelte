@@ -28,7 +28,7 @@
   <div>
     <ul class="chat-list">
       {#each messages as msg}
-        <li><strong>{msg}</strong></li>
+        <li>{msg}</li>
       {/each}
     </ul>
   </div>

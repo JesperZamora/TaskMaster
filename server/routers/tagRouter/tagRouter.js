@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { getTags } from "../../database/tagRepository.js";
+import { authenticateSession } from "../../middleware/userAuthentication.js";
 
 const router = Router();
 
-router.get("/api/v1/tags", async (req, res) => {
+router.get("/api/v1/tags", authenticateSession, async (req, res) => {
   try {
     const result = await getTags();
 
