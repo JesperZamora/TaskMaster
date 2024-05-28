@@ -107,32 +107,46 @@ export async function insertTasksData() {
     "INSERT INTO tasks (title, taskDescription, dueDate, isCompleted, userId) VALUES (?,?,?,?,?);";
 
   await connection.execute(sql, [
-    "Task 1",
-    "This is the description of task 1",
+    "Sports",
+    "Join the local soccer league and attend weekly practice sessions every Saturday morning. Improve your skills, meet new teammates, and enjoy the thrill of competitive matches throughout the season.",
     "2024-06-1",
-    1,
+    0,
     2,
   ]);
   await connection.execute(sql, [
-    "Task 2",
-    "This is the description of task 2",
+    "Fun games",
+    "Organize a weekend game night with friends. Select a mix of board games and video games, prepare snacks and drinks, and create a fun, inviting atmosphere for an evening of friendly competition and laughter.",
     "2024-06-2",
     0,
     2,
   ]);
   await connection.execute(sql, [
-    "Task 3",
-    "This is the description of task 3",
+    "Self improvement",
+    "Dedicate time to self-care and personal growth. Set up a daily routine that includes meditation, journaling, and reading. Focus on activities that promote mental well-being and personal reflection.",
     "2024-06-3",
     0,
     3,
   ]);
   await connection.execute(sql, [
-    "Task 4",
-    "This is the description of task 4",
+    "Vacation",
+    "Plan a relaxing beach vacation for the family. Research destinations, book flights and accommodations, and create an itinerary that includes sightseeing, dining, and plenty of downtime by the ocean.",
     "2024-06-4",
     0,
     3,
+  ]);
+  await connection.execute(sql, [
+    "Work stuff",
+    "Prepare for the upcoming quarterly review meeting. Compile performance reports, highlight key achievements, and identify areas for improvement. Create a presentation to showcase your progress and future goals.",
+    "2024-06-2",
+    0,
+    2,
+  ]);
+  await connection.execute(sql, [
+    "Start garden club",
+    "Start a community garden project. Gather interested neighbors, find a suitable location, plan the layout, and assign tasks. Plant a variety of fruits, vegetables, and flowers to create a vibrant, shared space.",
+    "2024-06-2",
+    0,
+    2,
   ]);
 }
 
@@ -149,8 +163,10 @@ export async function insertTagsData() {
 
 export async function insertTaskTagsData() {
   const sql = "INSERT INTO taskTags (taskId, tagId) VALUES(?,?);";
-  await connection.execute(sql, ["1", "4"]);
+  await connection.execute(sql, ["1", "5"]);
   await connection.execute(sql, ["2", "6"]);
-  await connection.execute(sql, ["3", "3"]);
-  await connection.execute(sql, ["4", "2"]);
+  await connection.execute(sql, ["3", "1"]);
+  await connection.execute(sql, ["4", "7"]);
+  await connection.execute(sql, ["5", "3"]);
+  await connection.execute(sql, ["6", "4"]);
 }

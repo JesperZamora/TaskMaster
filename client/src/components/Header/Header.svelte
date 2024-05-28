@@ -1,9 +1,6 @@
-<script>
-</script>
-
 <header>
   <div class="logo-container">
-    <img src="../../../img/logo/logo.png" alt="Task Master Logo" />
+    <img src="/images/logo.png" alt="Task Master Logo" />
   </div>
 </header>
 
